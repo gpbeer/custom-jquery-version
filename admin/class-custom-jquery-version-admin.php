@@ -50,7 +50,7 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
 
         public static function inFooter()
         {
-            if (isset(get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer']) && get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer'] !== 1) {
+            if (isset(get_option('custom_jquery_version_settings')['enqueue_script_in_footer']) && get_option('custom_jquery_version_settings')['enqueue_script_in_footer'] !== 1) {
                 self::$in_footer = true;
             }
 
@@ -103,9 +103,9 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             );
 
             add_settings_field(
-                'custom_jquery_version_in_footer',
+                'enqueue_script_in_footer',
                 __('Enqueue the script in footer instead of head', 'custom-jquery-version'),
-                [$this, 'custom_jquery_version_in_footer_render'],
+                [$this, 'enqueue_script_in_footer_render'],
                 'custom-jquery-version-sections',
                 'section_option'
             );
@@ -137,11 +137,11 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             </select>
         <?php }
 
-        public function custom_jquery_version_in_footer_render()
+        public function enqueue_script_in_footer_render()
         {
             ?>
             <input type='checkbox'
-                   name='custom_jquery_version_settings[custom_jquery_version_in_footer]' <?php checked($this->inFooter(), true); ?>
+                   name='custom_jquery_version_settings[enqueue_script_in_footer]' <?php checked($this->inFooter(), true); ?>
                    value='1'>
             <?php
 
