@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Custom jQuery Version
  * Description: Replace Wordpress default Jquery version by Google hosted CDN.
- * Version: 1.0.1
+ * Version: 1.2.0
  * Author: German Pichardo
  * Author URI: http://www.german-pichardo.com
  */
