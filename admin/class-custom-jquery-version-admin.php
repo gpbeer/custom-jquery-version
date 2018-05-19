@@ -8,8 +8,8 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
     class CustomJqueryVersionAdmin
     {
 
-        public $version, $in_footer;
-        private static $version_fallback = '2.1.3'; // 2.1.3 or 1.11.2
+        public $in_footer;
+        protected static $version = '2.1.3';
 
         /**
          * Plugin initialization
@@ -22,7 +22,6 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             add_action('admin_init', [$this, 'admin_page_init']);
             // Add plugin settings link
             add_filter('plugin_action_links', [$this, 'add_settings_link'], 10, 2);
-
         }
 
         /**
@@ -38,6 +37,15 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
                 'custom-jquery-version-options', // menu_slug
                 [$this, 'create_admin_page'] // function
             );
+        }
+
+        public static function getVersion()
+        {
+            if (isset(get_option('custom_jquery_version_settings')['jquery_hosted_version']) && !empty(get_option('custom_jquery_version_settings')['jquery_hosted_version'])) {
+                self::$version = get_option('custom_jquery_version_settings')['jquery_hosted_version'];
+            }
+
+            return self::$version;
         }
 
         /**
@@ -109,12 +117,11 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
         { ?>
             <select name='custom_jquery_version_settings[jquery_hosted_version]'>
                 <?php
-                $this->version = (isset(get_option('custom_jquery_version_settings')['jquery_hosted_version']) && !empty(get_option('custom_jquery_version_settings')['jquery_hosted_version'])) ? get_option('custom_jquery_version_settings')['jquery_hosted_version'] : self::$version_fallback;
                 $options = explode(',', $this->getHostedVersions());
                 foreach ($options as $option): ?>
                     <option
                         value='<?php echo trim($option); ?>'
-                        <?php selected($this->version, trim($option)); ?>>
+                        <?php selected($this->getVersion(), trim($option)); ?>>
                         <?php echo 'jQuery Core ' . $option; ?>
                     </option>
                 <?php endforeach; ?>
@@ -159,4 +166,4 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
 } // !class_exists
 
 if (is_admin())
-    $custom_jquery_version = new CustomJqueryVersionAdmin();
+    $custom_jquery_version_admin = new CustomJqueryVersionAdmin();
