@@ -39,6 +39,9 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             );
         }
 
+        /**
+         * Get chosen and fallback version
+         */
         public static function getVersion()
         {
             if (isset(get_option('custom_jquery_version_settings')['jquery_hosted_version']) && !empty(get_option('custom_jquery_version_settings')['jquery_hosted_version'])) {
@@ -48,9 +51,12 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             return self::$version;
         }
 
+        /**
+         * Check if we enqueue JQuery in footer
+         */
         public static function inFooter()
         {
-            if (isset(get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer']) && get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer'] !== 1) {
+            if (isset(get_option('custom_jquery_version_settings')['enqueue_script_in_footer']) && get_option('custom_jquery_version_settings')['enqueue_script_in_footer'] !== 1) {
                 self::$in_footer = true;
             }
 
@@ -87,34 +93,33 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
 
             // Add Section for option fields
             add_settings_section(
-                'section_option', // id
+                'custom_jquery_version_section', // id
                 '', // title
-                [$this, 'section_option_callback'], // callback
+                [$this, 'custom_jquery_version_section_render'], // callback
                 'custom-jquery-version-sections' // page
             );
 
-            // Add Slug Field
             add_settings_field(
                 'jquery_hosted_version', // id
                 __('Google Hosted CDN versions'), // title
                 [$this, 'jquery_hosted_version_render'], // callback
                 'custom-jquery-version-sections', // page
-                'section_option' // section
+                'custom_jquery_version_section' // section
             );
 
             add_settings_field(
-                'custom_jquery_version_in_footer',
+                'enqueue_script_in_footer',
                 __('Enqueue the script in footer instead of head', 'custom-jquery-version'),
-                [$this, 'custom_jquery_version_in_footer_render'],
+                [$this, 'enqueue_script_in_footer_render'],
                 'custom-jquery-version-sections',
-                'section_option'
+                'custom_jquery_version_section'
             );
         }
 
         /**
          * Section slug callback
          */
-        public function section_option_callback()
+        public function custom_jquery_version_section_render()
         {
             echo "<hr>";
         }
@@ -137,11 +142,11 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             </select>
         <?php }
 
-        public function custom_jquery_version_in_footer_render()
+        public function enqueue_script_in_footer_render()
         {
             ?>
             <input type='checkbox'
-                   name='custom_jquery_version_settings[custom_jquery_version_in_footer]' <?php checked($this->inFooter(), true); ?>
+                   name='custom_jquery_version_settings[enqueue_script_in_footer]' <?php checked($this->inFooter(), true); ?>
                    value='1'>
             <?php
 
