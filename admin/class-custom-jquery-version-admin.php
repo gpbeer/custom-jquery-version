@@ -8,8 +8,8 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
     class CustomJqueryVersionAdmin
     {
 
-        public $in_footer;
         protected static $version = '2.1.3';
+        protected static $in_footer = false;
 
         /**
          * Plugin initialization
@@ -46,6 +46,15 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
             }
 
             return self::$version;
+        }
+
+        public static function inFooter()
+        {
+            if (isset(get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer']) && get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer'] !== 1) {
+                self::$in_footer = true;
+            }
+
+            return self::$in_footer;
         }
 
         /**
@@ -130,11 +139,10 @@ if (!class_exists('CustomJqueryVersionAdmin')) {
 
         public function custom_jquery_version_in_footer_render()
         {
-            $this->in_footer = isset(get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer']) ? get_option('custom_jquery_version_settings')['custom_jquery_version_in_footer'] : 0;
             ?>
             <input type='checkbox'
-                   name='custom_jquery_version_settings[custom_jquery_version_in_footer]' <?php checked($this->in_footer, 'true'); ?>
-                   value='true'>
+                   name='custom_jquery_version_settings[custom_jquery_version_in_footer]' <?php checked($this->inFooter(), true); ?>
+                   value='1'>
             <?php
 
         }
