@@ -1,0 +1,45 @@
+# Copyright (C) 2021 German Pichardo
+# This file is distributed under the same license as the Custom Jquery Version plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Jquery Version 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/german-pichardo/custom-jquery-version/issues\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-02-21T15:31:17+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: gp\n"
+
+#. Plugin Name of the plugin
+msgid "Custom Jquery Version"
+msgstr ""
+
+#. Description of the plugin
+msgid "Replace WordPress default Jquery version by Google hosted CDN."
+msgstr ""
+
+#. Author of the plugin
+msgid "German Pichardo"
+msgstr ""
+
+#: includes/class-admin.php:69
+msgid "JQuery version control"
+msgstr ""
+
+#: includes/class-admin.php:104
+#: includes/class-admin.php:124
+msgid "Google Hosted CDN versions"
+msgstr ""
+
+#: includes/class-admin.php:112
+#: includes/class-admin.php:157
+msgid "Enqueue the script in footer"
+msgstr ""
+
+#: includes/class-admin.php:177
+msgid "Settings"
+msgstr ""
