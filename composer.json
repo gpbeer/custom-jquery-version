@@ -24,7 +24,7 @@
   "scripts": {
     "lint": "\"vendor/bin/phpcs\"",
     "lint:fix": "\"vendor/bin/phpcbf\"",
-	"makepot": "wp i18n make-pot . languages/gp.pot --skip-audit --exclude=build,dist --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/german-pichardo/custom-jquery-version/issues\"}'",
+	"makepot": "wp i18n make-pot . languages/gp.pot --skip-audit --headers='{\"Report-Msgid-Bugs-To\":\"https://github.com/german-pichardo/custom-jquery-version/issues\"}'",
 	"install-hooks": ["cp -Rf ./bin/pre-commit .git/hooks", "chmod +x .git/hooks/pre-commit"],
 	"pre-install-cmd": ["@install-hooks"]
   }
