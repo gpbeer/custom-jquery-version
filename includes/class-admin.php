@@ -15,7 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Admin
  */
 class Admin {
-
+	/**
+	 * Version
+	 *
+	 * @link https://developers.google.com/speed/libraries#jquery
+	 */
 	const VERSIONS  = '3.5.1, 3.5.0, 3.4.1, 3.4.0, 3.3.1, 3.2.1, 3.2.0, 3.1.1, 3.1.0, 3.0.0, 2.2.4, 2.2.3, 2.2.2, 2.2.1, 2.2.0, 2.1.4, 2.1.3, 2.1.1, 2.1.0, 2.0.3, 2.0.2, 2.0.1, 2.0.0, 1.12.4, 1.12.3, 1.12.2, 1.12.1, 1.12.0, 1.11.3, 1.11.2, 1.11.1, 1.11.0, 1.10.2, 1.10.1, 1.10.0, 1.9.1, 1.9.0, 1.8.3, 1.8.2, 1.8.1, 1.8.0, 1.7.2, 1.7.1, 1.7.0, 1.6.4, 1.6.3, 1.6.2, 1.6.1, 1.6.0, 1.5.2, 1.5.1, 1.5.0, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.2, 1.3.1, 1.3.0, 1.2.6, 1.2.3';
 	const PAGE_NAME = 'custom-jquery-version-sections';
 
@@ -96,7 +100,7 @@ class Admin {
 		);
 
 		add_settings_field(
-			'jquery_hosted_version',
+			'version',
 			__( 'Google Hosted CDN versions', 'gp' ),
 			[ $this, 'render_field_hosted_version' ],
 			self::PAGE_NAME,
@@ -104,7 +108,7 @@ class Admin {
 		);
 
 		add_settings_field(
-			'enqueue_script_in_footer',
+			'in_footer',
 			__( 'Enqueue the script in footer', 'gp' ),
 			[ $this, 'render_field_in_footer' ],
 			self::PAGE_NAME,
@@ -117,8 +121,8 @@ class Admin {
 	 */
 	public function render_field_hosted_version() {
 		?>
-		<label class="screen-reader-text" for="jquery_hosted_version"><?php echo esc_html( __( 'Google Hosted CDN versions', 'gp' ) ); ?></label>
-		<select name="custom_jquery_version_settings[jquery_hosted_version]" id="jquery_hosted_version">
+		<label class="screen-reader-text" for="version"><?php echo esc_html( __( 'Google Hosted CDN versions', 'gp' ) ); ?></label>
+		<select name="custom_jquery_version_settings[version]" id="version">
 			<?php
 
 			/**
@@ -150,8 +154,8 @@ class Admin {
 	 */
 	public function render_field_in_footer() {
 		?>
-		<label class="screen-reader-text" for="enqueue_script_in_footer"><?php echo esc_html( __( 'Enqueue the script in footer', 'gp' ) ); ?></label>
-		<input id="enqueue_script_in_footer" type="checkbox" name="custom_jquery_version_settings[enqueue_script_in_footer]" <?php checked( $this->get_in_footer(), true ); ?> value="1">
+		<label class="screen-reader-text" for="in_footer"><?php echo esc_html( __( 'Enqueue the script in footer', 'gp' ) ); ?></label>
+		<input id="in_footer" type="checkbox" name="custom_jquery_version_settings[in_footer]" <?php checked( $this->get_in_footer(), true ); ?> value="1">
 		<?php
 	}
 
@@ -183,8 +187,8 @@ class Admin {
 	 * @return string
 	 */
 	public static function get_version() {
-		if ( self::get_option( 'jquery_hosted_version' ) ) {
-			self::set_version( self::get_option( 'jquery_hosted_version' ) );
+		if ( self::get_option( 'version' ) ) {
+			self::set_version( self::get_option( 'version' ) );
 		}
 
 		return (string) self::$version;
@@ -205,7 +209,7 @@ class Admin {
 	 * @return bool
 	 */
 	public static function get_in_footer() {
-		if ( self::get_option( 'enqueue_script_in_footer' ) ) {
+		if ( self::get_option( 'in_footer' ) ) {
 			self::set_in_footer( true );
 		}
 
