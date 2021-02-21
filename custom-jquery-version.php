@@ -1,15 +1,34 @@
 <?php
 /**
- * Plugin Name: Custom jQuery Version
- * Description: Replace Wordpress default Jquery version by Google hosted CDN.
- * Version: 1.2.0
- * Author: German Pichardo
- * Author URI: http://www.german-pichardo.com
+ * Plugin Name:     Custom Jquery Version
+ * Description:     Replace WordPress default Jquery version by Google hosted CDN.
+ * Version:         2.0.0
+ * Author:          German Pichardo
+ * Text Domain:     gp
+ * Domain Path:     /languages
+ *
+ * @package   GP\Custom_Jquery_Version
+ * @link      https://github.com/german-pichardo/custom-jquery-version
  */
-// If this file is called directly, abort.
-if (!defined('ABSPATH')) {
-    die;
+
+namespace GP\Custom_Jquery_Version;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
-require_once plugin_dir_path(__FILE__) . 'admin/class-custom-jquery-version-admin.php'; // Admin
-require_once plugin_dir_path(__FILE__) . 'front/class-custom-jquery-version-front.php'; // Front
+define( 'CUSTOM_JQUERY_VERSION_DIR', plugin_dir_path( __FILE__ ) );
+define( 'CUSTOM_JQUERY_VERSION_URL', plugin_dir_URL( __FILE__ ) );
+
+// Plugin Global information.
+require_once CUSTOM_JQUERY_VERSION_DIR . 'includes/class-info.php';
+
+/**
+ * Begins execution of the plugin.
+ */
+function run_init() {
+	include_once CUSTOM_JQUERY_VERSION_DIR . 'includes/class-init.php';
+	new Init();
+}
+
+run_init();

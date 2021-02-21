@@ -1,0 +1,67 @@
+#! /bin/bash
+# This script checks changed files and run it respective coding standards before commit.
+# @author	German PICHARDO
+
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+RESET=$(tput sgr0)
+
+message_error() {
+  MESSAGE=$1
+  printf "%s✖ ${MESSAGE}%s\n" "${RED}" "${RESET}"
+}
+
+message_aborting() {
+  MESSAGE=$1
+  message_error "Aborting commit: ${MESSAGE} - Check error report, fix them and commit again.\n"
+}
+
+message_info() {
+  MESSAGE=$1
+  printf "%s${MESSAGE}%s\n" "${GREEN}" "${RESET}"
+}
+
+# Create empty errors array
+declare -a errors
+
+# Fetch all changed php files
+PROJECT=$(php -r "echo dirname(dirname(dirname(realpath('$0'))));")
+files=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep '\.php$')
+if [ -n "$files" ]; then
+
+  message_info "Checking PHP Files. . ."
+  echo
+
+  for file in $files; do
+
+    # Check if they are valid php files
+    message_info "Running PHP syntax errors..."
+    php -l -d display_errors=0 $PROJECT/$file
+    # if contain errors
+    if [ $? != 0 ]; then
+      message_aborting "$file Some files contains php syntax errors!"
+      errors=("${errors[@]}" "$file")
+    fi
+
+    # Checks phpcs errors
+    message_info "Running PHP coding standards..."
+    ./vendor/bin/phpcs --colors ${file}
+    # if errors.
+    if [[ $? != 0 ]]; then
+      message_aborting "$file fails coding standards!"
+      errors=("${errors[@]}" "$file")
+    else
+      ./vendor/bin/phpcbf ${file}
+    fi
+  done
+fi
+
+# if we have errors, exit with 1
+if [ -n "$errors" ]; then
+  for error in "${errors[@]}"; do
+    message_error "Fix the file $error and commit again."
+  done
+  exit 1
+fi
+
+message_info '☑ No errors found!'

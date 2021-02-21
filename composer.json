@@ -1,0 +1,29 @@
+{
+  "name": "gp/custom-jquery-version",
+  "description": "Replace the WordPress own copy of JQuery by a Google hosted CDN version.",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "German Pichardo"
+    }
+  ],
+  "license": "GPLv2+",
+  "support": {
+    "source": "https://github.com/german-pichardo/custom-jquery-version"
+  },
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "wp-coding-standards/wpcs": "^2.3",
+    "phpcompatibility/phpcompatibility-wp": "2.1.0"
+  },
+  "scripts": {
+    "lint": "\"vendor/bin/phpcs\"",
+    "lint:fix": "\"vendor/bin/phpcbf\"",
+	"install-hooks": ["cp -Rf ./bin/pre-commit .git/hooks", "chmod +x .git/hooks/pre-commit"],
+	"pre-install-cmd": ["@install-hooks"]
+  }
+}

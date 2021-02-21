@@ -1,0 +1,36 @@
+/vendor/
+
+#==============================#
+#     PhpStorm and Editors     #
+#==============================#
+/.idea/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+#==================#
+#    Log files     #
+#==================#
+*.log
+error_log
+access_log
+
+#===================================#
+#       Npm - Sass                  #
+#===================================#
+.sass-cache
+*.css.map
+node_modules
+
+#===========================#
+#       Packaged files      #
+#===========================#
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
